@@ -13,7 +13,7 @@ public class DbAdapter {
 	private static final String DATABASE_NAME = "pressure.db";
 	private static final String DATABASE_TABLE = "pTable";
 	private static final String TABLE_CREATE =
-	"create table " + DATABASE_TABLE + " ( _id integer primary key	autoincrement," +
+	"create table IF NOT EXISTS  " + DATABASE_TABLE + " ( _id integer primary key	autoincrement," +
 	"_time NUMERIC not null, pressure text not null);";
 	private static final String TABLE_DROP =
 			"drop table IF EXISTS " + DATABASE_TABLE+";";
@@ -23,9 +23,10 @@ public class DbAdapter {
 	Log.i(DbAdapter.class.getName(), "Creating database ***********************");
 	myDatabase = ctx.openOrCreateDatabase(DATABASE_NAME, Context.MODE_PRIVATE,null);
 	try{
-	myDatabase.execSQL(TABLE_DROP);
-	}catch (SQLiteException ex){}
+	//myDatabase.execSQL(TABLE_DROP);
+	
 	myDatabase.execSQL(TABLE_CREATE);
+	}catch (SQLiteException ex){}
 	Log.i(DbAdapter.class.getName(), "Created database ***********************");
 	
 	}
@@ -49,14 +50,15 @@ public class DbAdapter {
 
 	public void getValue(Context applicationContext) {
 		// Возвращает все строки для первого и третьего столбца, без повторений
-		String[] result_columns = new String[] {"_id", "column_one"};
+		String[] result_columns = new String[] {"_id","_time", "pressure"};
 		Cursor allRows = myDatabase.query(true, DATABASE_TABLE, result_columns,	null, null, null, null, null, null);
 		if (allRows.moveToFirst()) {
 			// Пройдитесь по каждой строке.
 			do {
+				Integer s0 = allRows.getInt(0);
 				Long s1 = allRows.getLong(1);
 				String s2 = allRows.getString(2);
-				Log.i(DbAdapter.class.getName(), "readed "+s1+" "+s2);
+				Log.i(DbAdapter.class.getName(), "readed "+s0+" "+s1+" "+s2);
 			} while(allRows.moveToNext());
 			}
 		
