@@ -94,6 +94,11 @@ public class MainActivity extends Activity {
     //----------------------------------------------------------------
     public void RefreshTemper()
     {
+    	DbAdapter dbb = new DbAdapter();
+    	dbb.createDatabase(getApplicationContext() );
+    	dbb.insValue(getApplicationContext());
+    	dbb.getValue(getApplicationContext());
+    	
         final TextView tTemper = (TextView) findViewById(R.id.temper);
          String bashtemp = "";
          new DownloadImageTask(tTemper)
