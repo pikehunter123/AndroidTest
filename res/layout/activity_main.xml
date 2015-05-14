@@ -29,6 +29,28 @@
     android:id="@+id/temper"
     android:textColor="#EEE3C4"
     />
+<Button
+    android:id="@+id/start"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:layout_gravity="center_horizontal|center"
+    android:textSize="30px"
+    android:padding="20px"
+    android:layout_marginTop="10dip"
+    android:text="start"
+    />
+<Button
+    android:id="@+id/stop"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:layout_gravity="center_horizontal|center"
+    android:textSize="30px"
+    android:padding="20px"
+    android:layout_marginTop="10dip"
+    android:text="stop"
+    />
  <!--   <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

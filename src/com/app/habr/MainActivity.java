@@ -6,12 +6,17 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.content.ComponentName;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 	static int i=0;
@@ -27,6 +32,27 @@ public class MainActivity extends Activity {
 	                RefreshTemper();
 	            }
 	        });
+	        
+	        final Button buttonSta = (Button) findViewById(R.id.start);
+	        buttonSta.setOnClickListener(new Button.OnClickListener() {
+	            public void onClick(View v) // клик на кнопку
+	            {
+	              Log.i(MainActivity.class.getName(), "started");
+	                ComponentName service = startService(new Intent(getApplicationContext(),PressureUpdateService.class));
+	            }
+	        });
+	        
+	        final Button buttonSto = (Button) findViewById(R.id.stop);
+	        buttonSto.setOnClickListener(new Button.OnClickListener() {
+	            public void onClick(View v) // клик на кнопку
+	            {
+	              Log.i(MainActivity.class.getName(), "stop");
+	              stopService(new Intent(getApplicationContext(), PressureUpdateService.class));
+	                
+	            }
+	        });
+	        
+	        
 
 	        RefreshTemper(); // при запуске грузим температуру сразу
 	}
@@ -103,6 +129,21 @@ public class MainActivity extends Activity {
          String bashtemp = "";
          new DownloadImageTask(tTemper)
          .execute("https://pogoda.yandex.ru/moscow/");
+         
+         int duration = Toast.LENGTH_SHORT;
+         Toast toast = Toast.makeText(getApplicationContext(), "yohoho", duration);
+         toast.show();
+         
+      // Выберите графический объект, который будет отображаться в качестве
+      // значка в статусной строке
+   /*   int icon = R.drawable.applogo;
+      // Текст, который будет виден в статусной строке в момент появления
+      // уведомления
+      String tickerText = "Notification";
+      // В расширенной статусной строке уведомления сортируются по времени
+      // появления
+      long when = System.currentTimeMillis();
+      Notification notification = new Notification(icon, tickerText, when);*/
         
     };
 

@@ -21,6 +21,7 @@ public class DownloadImageTask extends AsyncTask<String, Void, String> {
          //   Log.e("Error", e.getMessage());
          //   e.printStackTrace();     
   		Log.i(DownloadImageTask.class.getName(), "returned"+temp+" "+press );
+  		
         return temp+" "+press;
     }
 
